@@ -28,11 +28,21 @@ public class EventHubSpoutCallerMock {
   private IStateStore stateStore;
   private SpoutOutputCollectorMock collector;
   
-  public EventHubSpoutCallerMock(int totalPartitions,
-      int totalTasks, int taskIndex, int checkpointInterval) {
+    public EventHubSpoutCallerMock(int totalPartitions,
+                                   int totalTasks, int taskIndex, int checkpointInterval) {
+        this(totalPartitions, totalTasks, taskIndex, checkpointInterval, null);
+    }
+
+    public EventHubSpoutCallerMock(int totalPartitions,
+                                   int totalTasks, int taskIndex, int checkpointInterval, IEventDataScheme eventDataScheme) {
     stateStore = new StateStoreMock();
     EventHubSpoutConfig conf = new EventHubSpoutConfig("username", "password",
         "namespace", "entityname", totalPartitions, "zookeeper", checkpointInterval, 1024);
+
+    if(eventDataScheme != null){
+      conf.setEventDataScheme(eventDataScheme);
+    }
+
     conf.setTopologyName("TestTopo");
     
     IEventHubReceiverFactory recvFactory = new IEventHubReceiverFactory() {

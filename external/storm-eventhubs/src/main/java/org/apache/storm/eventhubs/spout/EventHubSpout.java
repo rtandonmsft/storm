@@ -192,7 +192,7 @@ public class EventHubSpout extends BaseRichSpout {
 
     if (eventDatawrap != null) {
       MessageId messageId = eventDatawrap.getMessageId();
-      List<Object> tuples = scheme.deserialize(eventDatawrap.getEventData());
+      List<Object> tuples = scheme.deserialize(eventDatawrap.getEventData(), messageId);
       if (tuples != null) {
         collector.emit(tuples, messageId);
       }

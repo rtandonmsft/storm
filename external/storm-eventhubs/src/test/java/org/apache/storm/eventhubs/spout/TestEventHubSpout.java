@@ -70,4 +70,11 @@ public class TestEventHubSpout {
     assertEquals("3", mock.getCheckpoint(6));
   }
 
+  @Test
+  public void testSpoutBinaryEventDataScheme() {
+    //This spout owns 1 partitions: 1
+    EventHubSpoutCallerMock mock = new EventHubSpoutCallerMock(4, 4, 1,10, new BinaryEventDataScheme());
+    String result = mock.execute("r2,f1_0,a1_1,a1_2,r2");
+    assertEquals("1_0,1_1,1_0,1_2", result);
+  }
 }

@@ -17,7 +17,9 @@
  *******************************************************************************/
 package org.apache.storm.eventhubs.spout;
 
-public class MessageId {
+import java.io.Serializable;
+
+public class MessageId implements Serializable {
 
   private final String partitionId;
   private final String offset;

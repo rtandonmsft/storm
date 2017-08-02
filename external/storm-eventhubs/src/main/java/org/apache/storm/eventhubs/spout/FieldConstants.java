@@ -24,5 +24,6 @@ public class FieldConstants {
   public static final String Message = "message";
   public static final String META_DATA = "metadata";
   public static final String SYSTEM_META_DATA = "eventdata_system_properties";
+  public static final String MESSAGE_ID = "message_id";
   public static final String DefaultStartingOffset = "-1";
 }

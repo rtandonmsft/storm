@@ -40,8 +40,14 @@ import java.util.Map;
 public class BinaryEventDataScheme implements IEventDataScheme {
 
 	private static final Logger logger = LoggerFactory.getLogger(BinaryEventDataScheme.class);
+
 	@Override
-	public List<Object> deserialize(EventData eventData){
+    public List<Object> deserialize(EventData eventData) {
+        return this.deserialize(eventData, null);
+    }
+
+    @Override
+    public List<Object> deserialize(EventData eventData, MessageId messageId) {
 		final List<Object> fieldContents = new ArrayList<Object>();
 		byte [] messageData = null;
 		if (eventData.getBytes() != null) {
@@ -63,12 +69,13 @@ public class BinaryEventDataScheme implements IEventDataScheme {
 		fieldContents.add(messageData);
 		fieldContents.add(metaDataMap);
 		fieldContents.add(systemMetaDataMap);
+		fieldContents.add(messageId);
 		return fieldContents;
 	}
 
 	@Override
 	public Fields getOutputFields() {
 		return new Fields(FieldConstants.Message, FieldConstants.META_DATA,
-				FieldConstants.SYSTEM_META_DATA);
+				FieldConstants.SYSTEM_META_DATA, FieldConstants.MESSAGE_ID);
 	}
 }

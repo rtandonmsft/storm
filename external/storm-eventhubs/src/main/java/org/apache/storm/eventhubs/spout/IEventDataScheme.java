@@ -36,6 +36,19 @@ public interface IEventDataScheme extends Serializable {
   List<Object> deserialize(EventData eventData);
 
   /**
+     * Deserialize an AMQP Message into a Tuple.
+     *
+     * @see #getOutputFields() for the list of fields the tuple will contain.
+     *
+     * @param eventData The EventData to Deserialize.
+     * @param messageId The messageId to extend the EventData for metadata associated with event
+     * @return A tuple containing the deserialized fields of the message.
+     */
+    default List<Object> deserialize(EventData eventData, MessageId messageId) {
+        return this.deserialize(eventData);
+    }
+
+  /**
    * Retrieve the Fields that are present on tuples created by this object.
    *
    * @return The Fields that are present on tuples created by this object.
